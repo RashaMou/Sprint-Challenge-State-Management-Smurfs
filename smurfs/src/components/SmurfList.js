@@ -8,7 +8,7 @@ const SmurfList = () => {
     <div className='main'>
       {smurfArray.map(smurf => {
         return (
-          <Smurf smurf={smurf}/>
+          <Smurf key={smurf.id} smurf={smurf}/>
       )})}
     </div>
   )

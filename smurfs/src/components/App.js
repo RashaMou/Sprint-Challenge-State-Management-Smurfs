@@ -11,10 +11,17 @@ class App extends Component {
       {
         name: '',
         age: '',
-         height: '',
+        height: '',
         id: ''
       }
-    ]
+    ],
+    isAdding: false,
+    addedSmurf: {
+      name: '',
+      age: '',
+      height: '',
+      id: ''
+    }
   }
 
   componentDidMount() {
@@ -25,16 +32,66 @@ class App extends Component {
       .catch(err => console.log(err))
   }
 
+  displayAddSmurfForm = () => {
+    this.setState({
+      isAdding: !this.state.isAdding
+    })
+  }
+
+  addSmurf = (e) => {
+    e.preventDefault()
+    this.setState({
+      smurfs: [...this.state.smurfs, this.state.addedSmurf],
+      isAdding: false,
+    })
+  }
+
+  handleChange = (event) => {
+    this.setState({
+      addedSmurf: {
+        [event.target.key]: event.target.value,
+        [event.target.key]: event.target.value,
+        [event.target.key]: event.target.value,
+      }
+    })
+    console.log(this.state.addedSmurf)
+  }
+
   render() {
-    console.log(this.state.smurfs)
     return (
       <div className="App">
         <header className='hero'>
           <div className='hero-content'>
             <h1 className='title is-1'>SMURFS!</h1>
-            <button className='button'>Add Smurf</button>
+            <button className='button' onClick={this.displayAddSmurfForm}>Add Smurf</button>
           </div>
         </header>
+          {this.state.isAdding ? 
+            <form className='control' onSubmit={this.addSmurf}>
+              <label className='label' htmlFor='name'>Name</label>
+                <input
+                  type='text'
+                  name='name'
+                  className='input'
+                  onChange={this.handleChange}
+                />
+              <label className='label' htmlFor='age'>Age</label>
+                <input 
+                  type='text'
+                  className='input'
+                  name='age'
+                  onChange={this.handleChange}
+                />
+              <label className='label' htmlFor='height'>Height</label>
+                <input 
+                  type='text'
+                  className='input'
+                  name='height'
+                  onChange={this.handleChange}
+                />
+                <button type='submit' className='button'>Add Smurf!</button>
+            </form>
+          : null }
           <SmurfContext.Provider value={this.state.smurfs}>
             <SmurfList />
           </SmurfContext.Provider>
