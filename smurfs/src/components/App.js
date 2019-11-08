@@ -16,7 +16,7 @@ class App extends Component {
       }
     ],
     isAdding: false,
-    addedSmurf: {
+    newSmurf: {
       name: '',
       age: '',
       height: '',
@@ -40,21 +40,22 @@ class App extends Component {
 
   addSmurf = (e) => {
     e.preventDefault()
-    this.setState({
-      smurfs: [...this.state.smurfs, this.state.addedSmurf],
-      isAdding: false,
-    })
+    console.log(this.state.newSmurf)
+    axios.post('http://localhost:3333/smurfs', this.state.newSmurf)
+      .then(res => this.setState({smurfs: [...this.state.smurfs, res.data]}))
+      .catch(err => console.log(err))
   }
 
   handleChange = (event) => {
+
     this.setState({
-      addedSmurf: {
-        [event.target.key]: event.target.value,
-        [event.target.key]: event.target.value,
-        [event.target.key]: event.target.value,
+      ...this.state,
+      newSmurf: {
+        ...this.state.newSmurf,
+        [event.target.name]: event.target.value,
+        id: Date.now()
       }
     })
-    console.log(this.state.addedSmurf)
   }
 
   render() {
@@ -71,9 +72,10 @@ class App extends Component {
               <label className='label' htmlFor='name'>Name</label>
                 <input
                   type='text'
-                  name='name'
                   className='input'
+                  name='name'
                   onChange={this.handleChange}
+                  value={this.state.newSmurf.name}
                 />
               <label className='label' htmlFor='age'>Age</label>
                 <input 
@@ -81,6 +83,7 @@ class App extends Component {
                   className='input'
                   name='age'
                   onChange={this.handleChange}
+                  value={this.state.newSmurf.age}
                 />
               <label className='label' htmlFor='height'>Height</label>
                 <input 
@@ -88,6 +91,7 @@ class App extends Component {
                   className='input'
                   name='height'
                   onChange={this.handleChange}
+                  value={this.state.newSmurf.height}
                 />
                 <button type='submit' className='button'>Add Smurf!</button>
             </form>
