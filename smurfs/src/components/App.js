@@ -29,7 +29,12 @@ class App extends Component {
     console.log(this.state.smurfs)
     return (
       <div className="App">
-        <h1>SMURFS!</h1>
+        <header className='hero'>
+          <div className='hero-content'>
+            <h1 className='title is-1'>SMURFS!</h1>
+            <button className='button'>Add Smurf</button>
+          </div>
+        </header>
           <SmurfContext.Provider value={this.state.smurfs}>
             <SmurfList />
           </SmurfContext.Provider>

@@ -2,10 +2,17 @@
   text-align: center;
 }
 
-h1 {
-  font-size: 3rem;
-  padding-top: 30px;
+.hero {
+  padding-bottom: 30px;
+  background-color: #027DFE;
+
+  .title {
+    padding-top: 30px;
+    color: white;
+  }
 }
+
+
 
 .main {
   width: 70%;
