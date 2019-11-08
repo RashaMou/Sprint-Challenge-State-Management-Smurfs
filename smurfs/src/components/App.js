@@ -29,7 +29,7 @@ class App extends Component {
       .then(res => {
         this.setState({smurfs: res.data})
       })
-      .catch(err => console.log(err))
+      .catch(err => console.log('componentDidMountError', err))
   }
 
   displayAddSmurfForm = () => {
@@ -40,14 +40,16 @@ class App extends Component {
 
   addSmurf = (e) => {
     e.preventDefault()
-    console.log(this.state.newSmurf)
     axios.post('http://localhost:3333/smurfs', this.state.newSmurf)
-      .then(res => this.setState({smurfs: [...this.state.smurfs, res.data]}))
-      .catch(err => console.log(err))
+      .then(res => this.setState(
+        {
+          smurfs: [...this.state.smurfs, ...res.data],
+          isAdding: false,
+        }))
+      .catch(err => console.log('addSmurf error', err))
   }
 
   handleChange = (event) => {
-
     this.setState({
       ...this.state,
       newSmurf: {
@@ -56,6 +58,21 @@ class App extends Component {
         id: Date.now()
       }
     })
+  }
+
+  deleteSmurf = (id) => {
+    console.log(this.state.smurfs)
+    axios.delete(`http://localhost:3333/smurfs/${id}`)
+      .then(res => console.log(res))
+      .catch(err => console.log('deleteSmurf error', err))
+  }
+
+  componentDidUpdate() {
+    axios.get('http://localhost:3333/smurfs')
+    .then(res => {
+      this.setState({smurfs: res.data})
+    })
+    .catch(err => console.log('componentDidUpdate error', err))
   }
 
   render() {
@@ -97,7 +114,7 @@ class App extends Component {
             </form>
           : null }
           <SmurfContext.Provider value={this.state.smurfs}>
-            <SmurfList />
+            <SmurfList deleteSmurf={this.deleteSmurf}/>
           </SmurfContext.Provider>
         
       </div>
