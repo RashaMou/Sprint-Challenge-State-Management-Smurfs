@@ -1,0 +1,38 @@
+.App {
+  text-align: center;
+}
+
+h1 {
+  font-size: 3rem;
+  padding-top: 30px;
+}
+
+.main {
+  width: 70%;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.smurf-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  // border: 1px solid black;
+  width: 200px;
+  margin: 20px;
+  box-shadow: 0 1px 1px rgba(0,0,0,0.15), 
+              0 2px 2px rgba(0,0,0,0.15), 
+              0 4px 4px rgba(0,0,0,0.15), 
+              0 8px 8px rgba(0,0,0,0.15);
+
+  li {
+    padding: 10px;
+  }
+
+  .smurf-name {
+    margin: 0 auto;
+    font-size: 1.4rem;
+  }
+}
+
