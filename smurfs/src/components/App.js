@@ -113,8 +113,8 @@ class App extends Component {
                 <button type='submit' className='button'>Add Smurf!</button>
             </form>
           : null }
-          <SmurfContext.Provider value={this.state.smurfs}>
-            <SmurfList deleteSmurf={this.deleteSmurf}/>
+          <SmurfContext.Provider value={{state: this.state.smurfs, deleteSmurf: this.deleteSmurf}}> 
+            <SmurfList />
           </SmurfContext.Provider>
         
       </div>
