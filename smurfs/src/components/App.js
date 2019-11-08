@@ -16,6 +16,7 @@ class App extends Component {
       }
     ],
     isAdding: false,
+    isEditing: false,
     newSmurf: {
       name: '',
       age: '',
@@ -67,6 +68,13 @@ class App extends Component {
       .catch(err => console.log('deleteSmurf error', err))
   }
 
+  editSmurf = () => {
+    this.setState({
+      isEditing: !this.state.isEditing
+    })
+
+  }
+
   componentDidUpdate() {
     axios.get('http://localhost:3333/smurfs')
     .then(res => {
@@ -113,7 +121,7 @@ class App extends Component {
                 <button type='submit' className='button'>Add Smurf!</button>
             </form>
           : null }
-          <SmurfContext.Provider value={{state: this.state.smurfs, deleteSmurf: this.deleteSmurf}}> 
+          <SmurfContext.Provider value={{state: this.state.smurfs, deleteSmurf: this.deleteSmurf, editSmurf: this.editSmurf}}> 
             <SmurfList />
           </SmurfContext.Provider>
         

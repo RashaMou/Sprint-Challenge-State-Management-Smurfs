@@ -8,7 +8,7 @@ const SmurfList = (props) => {
     <div className='main'>
       {smurfData.state.map(smurf => {
         return (
-          <Smurf key={smurf.id} smurf={smurf} deleteSmurf={smurfData.deleteSmurf}/>
+          <Smurf key={smurf.id} smurf={smurf} deleteSmurf={smurfData.deleteSmurf} editSmurf={smurfData.editSmurf}/>
       )})}
     </div>
   )
